@@ -10,15 +10,16 @@ namespace ASPNETExercises.Controllers
 {
     public class HomeController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
         public IActionResult Index()
         {
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            return Content(environment);
-        }
+            return View();
+        }
+        //public IActionResult Index()
+        //{
+        //    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        //    return Content(environment);
+        //}
+
 
         public IActionResult About()
         {

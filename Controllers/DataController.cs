@@ -28,8 +28,10 @@ namespace ASPNETExercises.Controllers
             {
                 msg = ex.Message;
             }
-            return Content(msg);
+            ViewData["msg"] = msg;
+            return View();
         }
+
 
         private async Task<String> getMenuItemJsonFromWeb()
         {
