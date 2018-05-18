@@ -1,18 +1,37 @@
 ﻿@model CategoryViewModel
 @{
-ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
 }
-<div class="col-xs-2" style="top:15%;">&nbsp;</div>
-<div class="text-center col-xs-8" style="border:double;margin-top:10%;">
-<h4>Categories</h4>
-<br />
-<form asp-controller="MenuItem" asp-action="Index" method="post">
-<div class="col-sm-8 col-xs-12">
-<select asp-for="Id" asp-items="@Model.GetCategories()"
-class="form-group form-control" onchange="this.form.submit();">
-<option selected style="display:none;">Select Category</option>
-</select>
-</div>
-<div class="col-xs-2">&nbsp;</div>
-</form>
+<div class="col-sm-2 col-xs-12">&nbsp;</div>
+<div class="text-center col-sm-8 col-xs-12">
+    <form asp-controller="Category" asp-action="Index" method="post">
+        <div class="col-sm-4 col-xs-12">&nbsp;</div>
+        <div class="col-sm-4 col-xs-12">
+            <h2>Categories</h2>
+            <select style="position:relative;padding:5px;" asp-for="Id" asp-items="@Model.GetCategories()"
+                    class="form-group form-control" onchange="this.form.submit();">
+                <option selected style="display:none;">Select Category</option>
+            </select>
+        </div>
+        <div class="col-sm-4 col-xs-12">&nbsp;</div>
+    </form>
+    @if (Model.MenuItems != null && Model.MenuItems.Count() > 0)
+    {
+        <div class="col-xs-11 text-left" style="font-size:large;">
+            <h3>Items</h3>
+        </div>
+        foreach (MenuItem item in Model.MenuItems)
+        {
+            <div id="item" class="col-sm-3 col-xs-12 text-center" style="border:solid;">
+                <span class="col-xs-12"><img src="~/images/burger.jpg" /></span>
+                <span style="font-size:large;">@item.Description.Substring(0, 10)...</span>
+                <div>
+                    <span>For Nutrional Info.<br />Click Details</span>
+                </div>
+                <div style="padding-bottom: 10px;">
+                    <a href="" class="btn btn-default" data-id="@item.Id">Details</a>
+                </div>
+            </div>
+        }
+    }
 </div>

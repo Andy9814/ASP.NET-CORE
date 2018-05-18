@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-namespace ASPNetExercises.Models
+namespace ASPNETExercises.Models
 {
     public class CategoryModel
     {

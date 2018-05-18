@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace ASPNetExercises.Models
+namespace ASPNETExercises.Models
 {
     public class Category
     {
