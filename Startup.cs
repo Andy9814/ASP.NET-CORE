@@ -1,8 +1,8 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ASPNetExercises.Models;
+using ASPNETExercises.Models;
 using ASPNETExercises.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +25,14 @@ namespace ASPNETExercises
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(120); // 2 min session
+                options.Cookie.HttpOnly = true;
+            });
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
@@ -49,13 +57,14 @@ namespace ASPNETExercises
             //        name: "default",
             //        template: "{controller=Home}/{action=Index}/{id?}");
             //});
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            });
+
         }
     }
 }
