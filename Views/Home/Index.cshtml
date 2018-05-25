@@ -2,9 +2,15 @@
     ViewData["Title"] = "Home Page";
 }
 <div class="row">
-    <div class="col-md-3">
-    </div>
+    <h3 style="margin-top:10%;">
+        @if (ViewBag.Message != null)
+        {
+            ViewBag.Message = ViewBag.Message.Replace("\"", "");
+        }
+        @ViewBag.Message
+    </h3>
 </div>
+
 
 @*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
         <ol class="carousel-indicators">

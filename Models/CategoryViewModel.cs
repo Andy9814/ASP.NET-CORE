@@ -27,4 +27,4 @@ namespace ASPNETExercises.Models
             _categories = cats;
         }
     }
-}
+}

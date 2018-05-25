@@ -13,5 +13,10 @@ namespace ASPNETExercises.Models
         {
             return _db.Categories.ToList<Category>();
         }
+        public string GetName(int id)
+        {
+            Category cat = _db.Categories.First(c => c.Id == id);
+            return cat.Name;
+        }
     }
 }
