@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ASPNETExercises.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ASPNETExercises.Controllers
 {
@@ -12,6 +13,7 @@ namespace ASPNETExercises.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Message = HttpContext.Session.GetString("Message");
             return View();
         }
         //public IActionResult Index()

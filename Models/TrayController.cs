@@ -16,6 +16,6 @@ namespace ASPNETExercises.Controllers
             HttpContext.Session.Remove("tray");
             HttpContext.Session.Set<String>("Message", "Tray Cleared");
             return Redirect("/Home");
-        }
+        } 
     }
 }

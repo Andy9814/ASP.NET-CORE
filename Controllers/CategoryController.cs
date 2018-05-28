@@ -40,5 +40,77 @@ namespace ASPNETExercises.Controllers
             }
             return View(vm);
         }
+        public IActionResult SelectCategory(CategoryViewModel vm)
+        {
+            CategoryModel catModel = new CategoryModel(_db);
+            MenuItemModel menuModel = new MenuItemModel(_db);
+            List<MenuItem> items = menuModel.GetAllByCategory(vm.CategoryId);
+            List<MenuItemViewModel> vms = new List<MenuItemViewModel>();
+            if (items.Count > 0)
+            {
+                foreach (MenuItem item in items)
+                {
+                    MenuItemViewModel mvm = new MenuItemViewModel();
+                    mvm.Qty = 0;
+                    mvm.CategoryId = item.CategoryId;
+                    mvm.CategoryName = catModel.GetName(item.CategoryId);
+                    mvm.Description = item.Description;
+                    mvm.Id = item.Id;
+                    mvm.PRO = item.Protein;
+                    mvm.SALT = item.Salt;
+                    mvm.FAT = Convert.ToDecimal(item.Fat);
+                    mvm.FBR = item.Fibre;
+                    mvm.CHOL = item.Cholesterol;
+                    mvm.CAL = item.Calories;
+                    mvm.CARB = item.Carbs;
+                    vms.Add(mvm);
+                }
+                MenuItemViewModel[] myMenu = vms.ToArray();
+                HttpContext.Session.Set<MenuItemViewModel[]>("menu", myMenu);
+            }
+            vm.SetCategories(HttpContext.Session.Get<List<Category>>("categories"));
+            return View("Index", vm); // need the original Index View here
+        }        [HttpPost]
+        public ActionResult SelectItem(CategoryViewModel vm)
+        {
+            // cs we  change int to string 
+            Dictionary<int, object> tray;
+            if (HttpContext.Session.Get<Dictionary<int, Object>>("tray") == null)
+            {
+                tray = new Dictionary<int, object>();
+            }
+            else
+            {
+                tray = HttpContext.Session.Get<Dictionary<int, object>>("tray");
+            }
+            MenuItemViewModel[] menu = HttpContext.Session.Get<MenuItemViewModel[]>("menu");
+            String retMsg = "";
+            foreach (MenuItemViewModel item in menu)
+            {
+                if (item.Id == vm.Id)// change that to .productId
+                {
+                    if (vm.Qty > 0) // update only selected item
+                    {
+                        item.Qty = vm.Qty;
+                        retMsg = vm.Qty + " - item(s) Added!";
+                        tray[item.Id] = item;
+                    }
+                    else
+                    {
+                        item.Qty = 0;
+                        tray.Remove(item.Id);
+                        retMsg = "item(s) Removed!";
+                    }
+                    vm.CategoryId = item.CategoryId;
+                    break;
+                }
+            }
+            ViewBag.AddMessage = retMsg;
+            HttpContext.Session.Set<Dictionary<int, Object>>("tray", tray);
+            vm.SetCategories(HttpContext.Session.Get<List<Category>>("categories"));
+            return View("Index", vm);
+        }
     }
-}
+
+}
+
