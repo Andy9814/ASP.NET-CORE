@@ -70,7 +70,8 @@ namespace ASPNETExercises.Controllers
             }
             vm.SetCategories(HttpContext.Session.Get<List<Category>>("categories"));
             return View("Index", vm); // need the original Index View here
-        }        [HttpPost]
+        }
+        [HttpPost]
         public ActionResult SelectItem(CategoryViewModel vm)
         {
             // cs we  change int to string 

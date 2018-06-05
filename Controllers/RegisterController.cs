@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using ASPNETExercises.Models;
-using ASPNETExercises.Models;
+using ASPNETExercises.Utils;
 
 namespace ASPNETExercises.Controllers
 {
@@ -38,9 +38,9 @@ namespace ASPNETExercises.Controllers
                 if (result.Succeeded)
                 {
                     await _signInMgr.SignInAsync(user, isPersistent: false);
-                    HttpContext.Session.SetString("LoginStatus", "logged on as " + model.Email);
-                    HttpContext.Session.SetString("Message", "Registered, logged on as " + model.Email);
-                }
+                    HttpContext.Session.SetString(SessionVars.LoginStatus,"Logged on as" + model.Email);
+                    HttpContext.Session.SetString(SessionVars.LoginStatus, "Logged on as" + model.Email);
+              }
                 else
                 {
                     ViewBag.message = "registration failed - " + result.Errors.First().Description;

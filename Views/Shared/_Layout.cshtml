@@ -27,11 +27,14 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse">
+                <span class="pull-right" style="padding-right:5%; paddingtop:1%;color:white">@Context.Session.GetString(SessionVars.LoginStatus)</span>
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Data" asp-action="Index">Data Routines</a></li>
                     <li><a asp-area="" asp-controller="Category" asp-action="Index">Categories</a></li>
                     <li><a asp-area="" asp-controller="Register" asp-action="Index">Register</a></li>
+                    <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+                    <li><a asp-area="" asp-controller="Login" asp-action="Logoff">Logoff</a></li>
 
                 </ul>
             </div>
