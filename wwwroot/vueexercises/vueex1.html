@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Vue Exercise #1</title>
+    <link href="css/vueex1.css" rel="stylesheet" />
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+</head>
+<body>
+    <div id="background"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <div id="vue">
+        <h1>{{text}}</h1>
+        <div v-html="html"></div>
+        <div v-html="html1"></div>
+        <bar></bar>
+        <hello></hello>
+        <button v-on:click="sayHi">Click Me</button>
+    </div>
+    <script src="js/vueex1.js"></script>
+</body>
+</html>

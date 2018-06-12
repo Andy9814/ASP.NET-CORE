@@ -1,0 +1,24 @@
+﻿@page
+@model ASPNETExercises.Pages.CategoryPageModel
+@{
+    ViewData["Title"] = "CategoryPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="categories">
+    <div class="col-sm-4">&nbsp;</div>
+    <div class="col-sm-4 col-xs-12" style="margin-top:5%;">
+        <div class="panel panel-default">
+            <div class="panel-title text-center">
+                <h3>Categories in Razor Page</h3>
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="list-group-item">@category.Name</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

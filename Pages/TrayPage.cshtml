@@ -1,0 +1,28 @@
+﻿@page
+@model ASPNETExercises.Pages.TrayPageModel
+@{
+    ViewData["Title"] = "TrayPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TrayPage</h2>
+
+<div class="col-sm-4">&nbsp;</div>
+<div class="col-sm-4 col-xs-12" style="margin-top:5%;">
+    <div class="panel panel-default">
+        <div class="panel-title text-center">
+            <h3>Trays in Razor page</h3>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+
+                @foreach (var tray in Model.Tray)
+                {
+                    <div class="list-group-item">@tray.DateCreated</div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

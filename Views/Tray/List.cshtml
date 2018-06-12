@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "List";
+}
+<link href="~/css/vuemodal.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<div id="trays">
+    <div class="col-sm-3">&nbsp;</div>
+    <div class="col-sm-6 col-xs-12" style="margin-top:5%;">
+        <div class="panel panel-default">
+            <div class="panel-title text-center">
+                <h3>Trays You've Ordered</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td>Id</td>
+                            <th class="text-center">Date</th>
+                            <th class="text-center">Total Calories</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr href="#" v-for="tray in trays" v-on:click="trayForModal=tray;loadAndShowModal();">
+                            <td>{{tray.id}}</td>
+                            <td>{{formatDate(tray.dateCreated)}}</td>
+                            <td class="text-right">{{tray.totalCalories}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <modal v-if="showModal" v-on:close="showModal = false" :tray="trayForModal"
+           :details="detailsForModal"></modal>
+</div>
+<script src="~/js/traylist.js"></script>
+<!-- template for the modal component -->
+<script type="text/x-template" id="modal-template">
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <slot name="header">
+                            <span class="row">
+                                <button type="button" class="btn btn-link closeModalX pull-right" v-on:click="$emit('close')">
+                                    X
+                                </button>
+                            </span>
+                            <div class="row" style="top:-50px;position:relative">
+                                <label class="col-xs-4 control-label">Tray:{{tray.id}}</label>
+                                <label class="col-xs-7 text-right control-label">{{formatDate(tray.dateCreated)}}</label>
+                            </div>
+                            <span class="col-xs-12 text-center">
+                                <img src="../images/Tray.png" class="medium-img" />
+                            </span>
+                        </slot>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <li class="list-group-item disabled row">
+                                <span class="col-xs-4 text-center">Qty</span>
+                                <span class="col-xs-8">Description</span>
+                            </li>
+                            <li v-for="detail in details" class="list-group-item row">
+                                <span class="col-xs-4 text-center">{{detail.qty}}</span>
+                                <span class="col-xs-8">{{detail.description}}</span>
+                            </li>
+                        </ul>
+                        <div class="modal-footer">
+                            <slot name="footer">
+                                <div v-if="details[0]" class="text-right">
+                                    <span class="col-xs-10">Total Calories:</span>
+                                    <span class="col-xs-2">{{details[0].totalCalories}}</span>
+                                    <span class="col-xs-10">Total Protein (g):</span>
+                                    <span class="col-xs-2">{{details[0].totalProtein}}</span>
+                                    <span class="col-xs-10">Total Fat (g):</span>
+                                    <span class="col-xs-2">{{details[0].totalFat}}</span>
+                                    <span class="col-xs-10">Total Salt (mg):</span>
+                                    <span class="col-xs-2">{{details[0].totalSalt}}</span>
+                                    <span class="col-xs-10">Total Cholesterol:</span>
+                                    <span class="col-xs-2">{{details[0].totalCholesterol}}</span>
+                                </div>
+                            </slot>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+</script>
